@@ -1,0 +1,118 @@
+﻿@model HRGroup.Models.VacancyCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Vacancy";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="max-w-3xl mx-auto mt-12 p-6 bg-white rounded shadow" style="margin-top: 90px;">
+    <h3 class="mb-4 text-2xl font-semibold text-center">Create Vacancy</h3>
+
+    <form asp-action="CreateVacancy" method="post" class="max-w-3xl mx-auto">
+        @Html.AntiForgeryToken()
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label asp-for="Vacancy.VacancyId" class="block font-semibold mb-1 text-gray-700">Vacancy ID</label>
+                <input asp-for="Vacancy.VacancyId" readonly
+                       class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-1.5 text-gray-600 cursor-not-allowed" />
+            </div>
+            <div>
+                <label asp-for="Vacancy.CreatedBy" class="block font-semibold mb-1 text-gray-700">Created By</label>
+                <input asp-for="Vacancy.CreatedBy" type="hidden" />
+                <input readonly
+                       value="@Model.Vacancy.CreatedBy"
+                       class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-1.5 text-gray-600 cursor-not-allowed" />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label asp-for="Vacancy.Title" class="block font-semibold mb-1 text-gray-700">Title</label>
+                <input asp-for="Vacancy.Title" placeholder="Enter Vacancy Title"
+                       class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <span asp-validation-for="Vacancy.Title" class="text-red-600 text-sm mt-1 block"></span>
+            </div>
+            <div>
+                <label asp-for="Vacancy.JobDescription" class="block font-semibold mb-1 text-gray-700">Job Description</label>
+                <textarea asp-for="Vacancy.JobDescription" rows="1" placeholder="Enter Job Description"
+                          class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+                <span asp-validation-for="Vacancy.JobDescription" class="text-red-600 text-sm mt-1 block"></span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label asp-for="Vacancy.Openings" class="block font-semibold mb-1 text-gray-700">Number of Openings</label>
+                <input asp-for="Vacancy.Openings" type="number" placeholder="Enter Number of Openings"
+                       class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <span asp-validation-for="Vacancy.Openings" class="text-red-600 text-sm mt-1 block"></span>
+            </div>
+            <div>
+                <label asp-for="Vacancy.DepartmentId" class="block font-semibold mb-1 text-gray-700">Select Department</label>
+                <select asp-for="Vacancy.DepartmentId"
+                        class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        asp-items="@(new SelectList(Model.Departments, "DepartmentId", "Name", Model.Vacancy.DepartmentId))">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="Vacancy.DepartmentId" class="text-red-600 text-sm mt-1 block"></span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label asp-for="Vacancy.Status" class="block font-semibold mb-1 text-gray-700">Status</label>
+                <select asp-for="Vacancy.Status"
+                        class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="Open">Open</option>
+                    <option value="Close">Close</option>
+                    <option value="Suspended">Suspended</option>
+                </select>
+                <span asp-validation-for="Vacancy.Status" class="text-red-600 text-sm mt-1 block"></span>
+            </div>
+            <div>
+                <label asp-for="Vacancy.CreatedDate" class="block font-semibold mb-1 text-gray-700">Created Date</label>
+                <input asp-for="Vacancy.CreatedDate" readonly
+                       class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-1.5 text-gray-600 cursor-not-allowed" />
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Vacancy.ClosingDate" class="block font-semibold mb-1 text-gray-700">Closing Date</label>
+            <input asp-for="Vacancy.ClosingDate" type="datetime-local"
+                   min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                   value="@(Model.Vacancy.ClosingDate.HasValue
+                   ? Model.Vacancy.ClosingDate.Value.ToString("yyyy-MM-ddTHH:mm")
+                   : DateTime.Now.ToString("yyyy-MM-ddTHH:mm"))"
+                   class="w-full border border-gray-300 rounded-md px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <span asp-validation-for="Vacancy.ClosingDate" class="text-red-600 text-sm mt-1 block"></span>
+        </div>
+
+        @if (ViewBag.Errors != null)
+        {
+            <div class="mb-4 bg-red-100 text-red-700 p-3 rounded">
+                <ul class="list-disc list-inside">
+                    @foreach (var error in (IEnumerable<string>)ViewBag.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="flex justify-end gap-3">
+            <a href="@Url.Action("Vacancies", "HR")"
+               class="px-4 py-1.5 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition duration-200">Discard</a>
+            <button type="submit"
+                    class="px-4 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200">
+                Create Vacancy
+            </button>
+        </div>
+    </form>
+</div>
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</environment>

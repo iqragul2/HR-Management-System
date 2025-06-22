@@ -1,0 +1,53 @@
+﻿@model HRGroup.Models.Applicant
+@{
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="max-w-2xl mx-auto my-16 p-6 bg-white rounded shadow">
+    <h2 class="text-xl font-semibold mb-4 text-blue-600 text-center">Edit Applicant</h2>
+
+    <form asp-action="EditApplicant" method="post" class="space-y-4 max-w-lg mx-auto">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <label class="block mb-1 font-medium text-gray-700">ID</label>
+            <input value="@Model.ApplicantId" readonly
+                   class="w-full bg-gray-100 border rounded px-2 py-1 cursor-not-allowed" />
+            <input type="hidden" asp-for="ApplicantId" />
+        </div>
+
+        <div>
+            <label asp-for="Name" class="block mb-1 font-medium text-gray-700"></label>
+            <input asp-for="Name"
+                   class="w-full border rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300" />
+            <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Email" class="block mb-1 font-medium text-gray-700"></label>
+            <input asp-for="Email"
+                   class="w-full border rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300" />
+            <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Status" class="block mb-1 font-medium text-gray-700"></label>
+            <select asp-for="Status"
+                    class="w-full border rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300">
+                <option>Not in Process</option>
+                <option>In Process</option>
+                <option>Hired</option>
+                <option>Banned</option>
+            </select>
+            <span asp-validation-for="Status" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="text-right">
+            <button type="submit"
+                    class="inline-flex items-center gap-2 px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">
+                💾 Update
+            </button>
+        </div>
+    </form>
+</div>
+

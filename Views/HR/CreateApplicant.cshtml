@@ -1,0 +1,72 @@
+﻿@model HRGroup.Models.Applicant
+
+@{
+    ViewData["Title"] = "Create Applicant";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="max-w-3xl mx-auto my-12 p-6 bg-white rounded shadow" style="margin-top: 90px;">
+    <h3 class="mb-6 text-xl font-semibold text-center">Create New Applicant</h3>
+
+    <form asp-action="CreateApplicant" method="post" class="space-y-4">
+        @Html.AntiForgeryToken()
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label asp-for="ApplicantId" class="block font-medium mb-1 text-gray-700">Applicant ID</label>
+                <input asp-for="ApplicantId" class="w-full bg-gray-100 border rounded px-3 py-2" readonly />
+            </div>
+            <div>
+                <label asp-for="AppliedDate" class="block font-medium mb-1 text-gray-700">Applied Date</label>
+                <input asp-for="AppliedDate" class="w-full bg-gray-100 border rounded px-3 py-2" readonly />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="Name" class="block font-medium mb-1">Name</label>
+            <input asp-for="Name" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" placeholder="Enter Applicant Name" />
+            <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Email" class="block font-medium mb-1">Email</label>
+            <input asp-for="Email" type="email" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="PhoneNumber" class="block font-medium mb-1">Phone Number</label>
+            <input asp-for="PhoneNumber" type="tel" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" placeholder="Enter Phone Number" />
+            <span asp-validation-for="PhoneNumber" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Status" class="block font-medium mb-1">Status</label>
+            <input asp-for="Status" class="w-full bg-gray-100 border rounded px-3 py-2" readonly />
+        </div>
+
+        @if (ViewBag.Errors != null)
+        {
+            <div class="bg-red-100 text-red-700 p-3 rounded">
+                <ul class="list-disc list-inside">
+                    @foreach (var error in (IEnumerable<string>)ViewBag.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="flex justify-end gap-4 pt-4">
+            <a href="@Url.Action("Applicants", "HR")" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Discard</a>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Create Applicant</button>
+        </div>
+    </form>
+</div>
+
+<!-- Validation Scripts -->
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</environment>

@@ -1,0 +1,60 @@
+﻿@model User
+
+@{
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+
+    var firstName = Context.Session.GetString("FirstName");
+    var lastName = Context.Session.GetString("LastName");
+    var fullName = Context.Session.GetString("FullName");
+    var employeeId = Context.Session.GetInt32("EmployeeId");
+    var isNewUser = Context.Session.GetInt32("IsNewUser") == 1; // 1 = new user, 0 = old user
+}
+
+<div class="container" style="margin-top:100px">
+    <section id="hero" class="hero section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="badge-wrapper mb-3">
+                        <div class="d-inline-flex align-items-center rounded-pill border border-accent-light">
+                            <!-- Optional badge content here -->
+                        </div>
+                    </div>
+                    @if (isNewUser)
+                    {
+                        <p class="fw-bold">Welcome, @firstName @lastName!</p>
+                    }
+                    else
+                    {
+                        <h1 class="hero-title mb-4" style="margin-top:0px">Welcome, @employeeId - @fullName!</h1>
+                    }
+                    <h1 class="hero-title mb-4" style="margin-top:0px">  SmartHire for Efficient Hiring</h1>
+
+                    <p class="hero-description mb-4">
+                        SmartHire's web-based recruitment system streamlines the hiring process for ABC Company's HR team.
+                        From vacancy creation to final selection, manage everything efficiently in one centralized platform.
+                    </p>
+
+                    <div class="cta-wrapper">
+                        @if (ViewBag.HasProfile == true)
+                        {
+                            <a asp-action="Discover" asp-controller="Home" class="btn btn-success">Discover</a>
+                        }
+                        else
+                        {
+                            <a asp-action="CreateProfile" asp-controller="HR" class="btn btn-primary">Create Profile</a>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="~/assets/img/illustration/illustration-16.webp" alt="Business Growth" class="img-fluid" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+

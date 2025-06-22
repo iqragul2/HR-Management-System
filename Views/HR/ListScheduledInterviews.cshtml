@@ -1,0 +1,75 @@
+﻿@model List<HRGroup.Models.ScheduleInterviewViewModel>
+@{
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="bg-light py-5" style="min-height: 100vh; margin-top: 60px; margin-bottom: 60px;">
+    <div class="container px-2">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body bg-white p-3">
+
+                <div class="text-center fw-bold mb-3">
+                    <h4 class="mb-0 text-dark">Schedule Interviews</h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 3%;">#</th>
+                                <th style="width: 15%;">Applicant</th>
+                                <th style="width: 15%;">Vacancy</th>
+                                <th style="width: 15%;">Interviewer</th>
+                                <th style="width: 10%;">Department</th>
+                                <th style="width: 10%;">Designation</th>
+                                <th style="width: 15%;">Date &amp; Time</th>
+                                <th style="width: 12%;">Notes</th>
+                                <th style="width: 8%;">Status</th>
+                                <th style="width: 7%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (!Model.Any())
+                            {
+                                <tr>
+                                    <td colspan="10" class="text-center text-muted py-3">No interviews scheduled.</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                int index = 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.ApplicantName</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.InterviewerName</td>
+                                        <td>@item.InterviewerDepartment</td>
+                                        <td>@item.InterviewerDesignation</td>
+                                        <td>@item.ScheduledDate.ToString("dd MMM yyyy, hh:mm tt")</td>
+                                        <td>@item.Notes</td>
+                                        <td>@item.Result</td>
+                                        <td>
+                                            <form asp-action="UpdateInterviewResult" asp-controller="HR" method="post" class="d-flex gap-1">
+                                                <input type="hidden" name="interviewId" value="@item.InterviewId" />
+                                                <select name="result" class="form-select form-select-sm w-auto">
+                                                    <option value="Selected">Selected</option>
+                                                    <option value="Rejected">Rejected</option>
+                                                </select>
+                                                <input type="text" name="notes" class="form-control form-control-sm w-auto" placeholder="Notes" />
+                                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

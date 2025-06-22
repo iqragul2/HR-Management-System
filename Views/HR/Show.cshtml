@@ -1,0 +1,42 @@
+﻿@model HRGroup.Models.Employee
+@{
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-20">
+    <div class="bg-white rounded-xl shadow-xl p-6 max-w-md w-full">
+
+        <h2 class="text-xl font-semibold mb-5 text-center text-gray-800">Profile Details</h2>
+
+        @if (Model != null)
+        {
+            <div class="flex flex-col items-center space-y-3">
+
+                <img src="@Model.ProfileImageUrl" alt="Profile Image"
+                     class="rounded-full w-28 h-28 object-cover border-4 border-indigo-500 shadow-md" />
+
+                <div class="w-full text-gray-700 text-sm">
+
+                    <p class="mb-1"><span class="font-semibold">Full Name:</span> @Model.FullName</p>
+                    <p class="mb-1"><span class="font-semibold">Email:</span> @Model.Email</p>
+                    <p class="mb-1"><span class="font-semibold">Phone Number:</span> @Model.PhoneNumber</p>
+                    <p class="mb-1"><span class="font-semibold">Address:</span> @Model.Address</p>
+                    <p class="mb-1"><span class="font-semibold">Designation:</span> @Model.Designation</p>
+                    <p class="mb-1"><span class="font-semibold">Gender:</span> @Model.Gender</p>
+                    <p class="mb-1"><span class="font-semibold">Date of Birth:</span> @Model.DateOfBirth?.ToString("yyyy-MM-dd")</p>
+                    <p class="mb-3"><span class="font-semibold">Department:</span> @Model.DepartmentId</p>
+
+                    <a asp-action="Edit" asp-route-employeeId="@Model.EmployeeId"
+                       class="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition duration-200 text-sm">
+                        Edit Profile
+                    </a>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-gray-600">No profile available.</p>
+        }
+    </div>
+</div>

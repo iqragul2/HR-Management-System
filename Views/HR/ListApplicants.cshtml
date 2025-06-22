@@ -1,0 +1,55 @@
+﻿@model IEnumerable<HRGroup.Models.Applicant>
+
+@{
+    ViewData["Title"] = "Applicants";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="bg-light d-flex justify-content-center align-items-start py-5" style="min-height: 100vh; margin-top: 100px;">
+    <div class="card shadow-lg border-0 rounded-4 mt-4" style="width: 900px; max-width: 100%;">
+        <div class="card-body bg-white px-4 pb-4 pt-4">
+
+            <!-- Heading inside card-body -->
+            <div class="text-center fw-bold rounded-3 shadow-sm py-3 mb-4"
+                 style="background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                <h4 class="mb-0 text-dark">Applicants</h4>
+            </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Applicant ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Applied Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var applicant in Model)
+                {
+                    <tr>
+                        <td>@applicant.ApplicantId</td>
+                        <td>@applicant.Name</td>
+                        <td>@applicant.AppliedDate.@DateTime.Now.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <span class="badge bg-secondary">@applicant.Status</span>
+                        </td>
+                        <td>
+                            <a asp-action="AttachToVacancy" asp-route-applicantId="@applicant.ApplicantId" class="btn btn-sm btn-outline-primary me-2">
+                                Attach to Vacancy
+                            </a>
+                                    <a asp-action="UpdateApplicant" asp-route-id="@applicant.ApplicantId" class="btn btn-sm btn-outline-warning">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>

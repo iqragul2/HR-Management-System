@@ -1,0 +1,49 @@
+﻿@model List<HRGroup.Models.Department>
+@{
+    ViewData["Title"] = "Departments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="min-h-screen pt-48 pb-24 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold text-center mb-8 text-gray-800">All Departments</h2>
+        @if (TempData["Success"] != null)
+        {
+            <div class="mb-4 p-3 rounded bg-green-100 text-green-800">
+                @TempData["Success"]
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-center text-gray-500">No departments found.</p>
+        }
+        else
+        {
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                @foreach (var dept in Model)
+                {
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+                        <img src="@dept.ImageUrl" alt="@dept.Name" class="h-48 w-full object-cover" />
+                        <div class="p-4 flex flex-col flex-1">
+                            <h5 class="text-lg font-semibold text-gray-800">@dept.Name</h5>
+                            <p class="text-sm text-gray-500 mb-4">ID: @dept.DepartmentId</p>
+                            <div class="mt-auto flex justify-between space-x-2">
+                                <a asp-action="EditDepartment" asp-route-id="@dept.DepartmentId"
+                                   class="inline-block px-3 py-1 rounded bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition">
+                                    Edit
+                                </a>
+                                <form asp-action="DeleteDepartment" method="post" onsubmit="return confirm('Are you sure to delete this department?');" class="mb-0">
+                                    <input type="hidden" name="id" value="@dept.DepartmentId" />
+                                    <button type="submit"
+                                            class="inline-block px-3 py-1 rounded bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

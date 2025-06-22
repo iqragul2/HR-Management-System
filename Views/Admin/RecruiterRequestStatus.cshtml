@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Recruiter Request";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<HRGroup.Models.RecruiterRequest>
+
+@{
+    var departments = ViewBag.Departments as List<HRGroup.Models.Department>;
+}
+
+<div class="min-h-screen flex flex-col justify-center items-center py-10 bg-gray-50">
+    <div class="w-full max-w-5xl bg-white rounded-lg shadow p-8">
+        <h2 class ="text-2xl font-bold text-center text-gray-800 mb-6">Pending Recruiter Requests</h2class>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-600">
+                <thead class="text-xs uppercase text-gray-700 bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">Contact Info</th>
+                        <th class="px-4 py-3">Reason</th>
+                        <th class="px-4 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach (var req in Model)
+                    {
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-4 py-3">@req.Name</td>
+                            <td class="px-4 py-3">@req.ContactInfo</td>
+                            <td class="px-4 py-3">@req.Reason</td>
+                            <td class="px-4 py-3">
+                                <div class="flex gap-2">
+                                    <form asp-action="ProcessRecruiterRequest" method="post">
+                                        <input type="hidden" name="requestId" value="@req.RequestId" />
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white rounded px-3 py-1 text-xs font-semibold">Approve</button>
+                                    </form>
+                                    <form asp-action="RejectRecruiter" method="post">
+                                        <input type="hidden" name="requestId" value="@req.RequestId" />
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white rounded px-3 py-1 text-xs font-semibold">Reject</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿@model Tuple<List<Department>, List<Vacancy>>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var departments = Model.Item1;
+    var vacancies = Model.Item2;
+}
+
+<div class="max-w-5xl mx-auto mt-20 p-8 bg-white rounded shadow">
+
+    <h1 class="text-3xl font-semibold mb-6 text-center">Departments</h1>
+    <form method="get" asp-action="Vacancies" class="mb-8">
+        <div class="flex flex-wrap justify-center gap-3">
+            @foreach (var dept in departments)
+            {
+                <button type="submit" name="departmentId" value="@dept.DepartmentId"
+                        class="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                    @dept.Name
+                </button>
+            }
+            <button type="submit" name="departmentId" value=""
+                    class="px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500 transition">
+                All
+            </button>
+        </div>
+    </form>
+
+    <hr class="mb-8 border-gray-300" />
+
+    <h2 class="text-2xl font-semibold mb-6 text-center">Vacancies</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @if (vacancies != null && vacancies.Any())
+        {
+            foreach (var vacancy in vacancies)
+            {
+                var modalId = $"modal_{vacancy.VacancyId}";
+
+                <div class="border rounded shadow p-6 flex flex-col justify-between relative">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">@vacancy.Title</h3>
+                        <p class="text-gray-700 mb-4">@vacancy.JobDescription</p>
+                        <p class="text-sm text-gray-500 mb-4">Status: <span class="font-semibold">@vacancy.Status</span></p>
+                    </div>
+
+                    <!-- Apply Button -->
+                    <button type="button"
+                            class="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                            onclick="document.getElementById('@modalId').classList.remove('hidden')">
+                        Apply
+                    </button>
+
+                    <!-- Modal -->
+                    <div id="@modalId"
+                         class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+                            <h2 class="text-2xl font-semibold mb-4">Apply for @vacancy.Title</h2>
+
+                            <form method="post" asp-action="ApplyToVacancy" asp-controller="Home">
+                                <input type="hidden" name="VacancyId" value="@vacancy.VacancyId" />
+
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-medium" for="ApplicantName">Full Name</label>
+                                    <input id="ApplicantName" name="ApplicantName" required
+                                           class="w-full border rounded px-3 py-2" />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-medium" for="ApplicantEmail">Email</label>
+                                    <input id="ApplicantEmail" name="ApplicantEmail" type="email" required
+                                           class="w-full border rounded px-3 py-2" />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-medium" for="ApplicantPhone">Phone Number</label>
+                                    <input id="ApplicantPhone" name="ApplicantPhone" type="tel" required
+                                           class="w-full border rounded px-3 py-2" />
+                                </div>
+
+                                <div class="flex justify-end space-x-4">
+                                    <button type="button"
+                                            class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded"
+                                            onclick="document.getElementById('@modalId').classList.add('hidden')">
+                                        Cancel
+                                    </button>
+                                    <button type="submit"
+                                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Close icon -->
+                            <button type="button"
+                                    class="absolute top-3 right-3 text-gray-600 text-2xl font-bold leading-none hover:text-gray-900"
+                                    onclick="document.getElementById('@modalId').classList.add('hidden')">
+                                &times;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center text-gray-500 col-span-full">No vacancies available for this department.</p>
+        }
+    </div>
+</div>

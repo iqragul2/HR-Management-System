@@ -1,0 +1,276 @@
+﻿
+      @model IEnumerable<HRGroup.Models.AboutU>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="team" class="team section light-background">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Our Team</h2>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <!-- Custom Flex Row for 5 items -->
+        <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            @foreach (var member in Model)
+            {
+                <div style="flex: 0 0 20%; max-width: 20%; padding: 10px;" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-image">
+                            <img src="@Url.Content(member.ImagePath)" class="img-fluid" alt="@member.Name" />
+                            <div class="team-overlay">
+                                <p>@member.Bio</p>
+                                <div class="team-social">
+                                    <a target="_blank" href="@member.TwitterUrl"><i class="bi bi-twitter-x"></i></a>
+                                    <a target="_blank" href="@member.FacebookUrl"><i class="bi bi-facebook"></i></a>
+                                    <a target="_blank" href="@member.InstagramUrl"><i class="bi bi-instagram"></i></a>
+                                    <a target="_blank" href="@member.LinkedInUrl"><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h4>@member.Name</h4>
+                            <span class="position">@member.Position</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+<section id="about" class="about section">
+
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+                <p class="who-we-are">Who We Are</p>
+                <h3>Empowering the Future with a Streamlined Recruitment Process</h3>
+                <p class="fst-italic">
+                    At ABC Company, we believe in finding the right talent through an efficient and fair recruitment process.
+                </p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>We prioritize matching candidates' skills with our company’s values.</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Our recruitment process is transparent, ensuring a smooth experience for all candidates.</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>We focus on diversity and inclusion, building a workforce that reflects our values.</span></li>
+                </ul>
+              
+            </div>
+
+            <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+                <div class="row gy-4">
+                    <div class="col-lg-6">
+                        <img src="~/assets/img/about/about-portrait-1.webp" class="img-fluid" alt="Recruitment Team">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row gy-4">
+                            <div class="col-lg-12">
+                                <img src="~/assets/img/about/about-8.jpg" class="img-fluid" alt="Interview Process">
+                            </div>
+                            <div class="col-lg-12">
+                                <img src="~/assets/img/about/about-12.webp" class="img-fluid" alt="Onboarding Process">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- /About Section -->
+<!-- Services Section -->
+<section id="services" class="services section">
+
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Our Services</h2>
+        <p>Streamlining the recruitment process with modern and efficient solutions.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row justify-content-center g-5">
+
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-person-lines-fill"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Applicant Tracking</h3>
+                        <p>Track job applications and manage candidate data efficiently through each stage of the recruitment process.</p>
+                        <a href="#" class="service-link">
+                           
+                       
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="100">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Interview Scheduling</h3>
+                        <p>Schedule and manage interviews with automated notifications for interviewers and applicants.</p>
+                        <a href="#" class="service-link">
+                         
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Candidate Evaluation</h3>
+                        <p>Evaluate candidates based on interview feedback and scoring metrics to make informed hiring decisions.</p>
+                        <a href="#" class="service-link">
+                         
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Resume Management</h3>
+                        <p>Upload, view, and manage resumes for all applicants from a centralized system.</p>
+                        <a href="#" class="service-link">
+                         
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Role-Based Access</h3>
+                        <p>Secure login access for Admin, HR Managers, and Interviewers with dedicated dashboards for each.</p>
+                        <a href="#" class="service-link">
+                       
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Real-Time Status</h3>
+                        <p>Monitor recruitment progress with real-time updates on applicant status, feedback, and approvals.</p>
+                        <a href="#" class="service-link">
+                           
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- /Services Section -->
+
+
+<section id="how-we-work" class="how-we-work section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>How Our Recruitment Process Works</h2>
+        <p>Streamlining the recruitment journey for ABC Company with efficiency and ease</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="steps-5">
+            <div class="process-container">
+
+                <div class="process-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="content">
+                        <span class="step-number">01</span>
+                        <div class="card-body">
+                            <div class="step-icon">
+                                <i class="bi bi-person-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Job Posting</h3>
+                                <p>The first step involves posting job opportunities and setting clear requirements for the role.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Process Item -->
+
+                <div class="process-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="content">
+                        <span class="step-number">02</span>
+                        <div class="card-body">
+                            <div class="step-icon">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Application Review</h3>
+                                <p>Reviewing submitted applications to shortlist candidates based on qualifications and experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Process Item -->
+
+                <div class="process-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="content">
+                        <span class="step-number">03</span>
+                        <div class="card-body">
+                            <div class="step-icon">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Interview & Evaluation</h3>
+                                <p>Conducting interviews and evaluating candidates to find the best fit for the role and company culture.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Process Item -->
+
+                <div class="process-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="content">
+                        <span class="step-number">04</span>
+                        <div class="card-body">
+                            <div class="step-icon">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Offer & Onboarding</h3>
+                                <p>Extending the job offer and guiding new hires through a smooth onboarding process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Process Item -->
+
+            </div>
+        </div>
+
+    </div>
+
+</section><!-- /How We Work Section -->

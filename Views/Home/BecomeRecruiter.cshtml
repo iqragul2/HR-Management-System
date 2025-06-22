@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Become a Recruiter";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hrdDept = ViewBag.HRDDepartment as Department;
+}
+<div class="container d-flex justify-content-center align-items-start" style="min-height: 100vh; padding-top: 300px;">
+    <div class="card shadow-sm rounded-3" style="width: 100%; max-width: 480px;">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-xl font-bold mb-4" style="padding-top: 350px;">Become a Recruiter (HRD Department)</h2>
+        </div>
+
+<form asp-action="BecomeRecruiter" method="post" class="space-y-3 max-w-md">
+    <div>
+        <label class="block font-semibold">Department</label>
+        <input type="text" value="@hrdDept?.Name" class="border rounded px-2 py-1 bg-gray-100 w-full" readonly />
+    </div>
+
+    <div>
+        <label class="block font-semibold">Full Name</label>
+        <input name="fullName" class="border rounded px-2 py-1 w-full" required />
+    </div>
+
+    <div>
+        <label class="block font-semibold">Phone Number</label>
+        <input name="phoneNumber" class="border rounded px-2 py-1 w-full" required />
+    </div>
+
+    <div>
+        <label class="block font-semibold">Email</label>
+        <input name="email" type="email" class="border rounded px-2 py-1 w-full" required />
+    </div>
+
+
+    <div>
+        <label class="block font-semibold">Why do you want to become a recruiter?</label>
+        <textarea name="reason" rows="3" class="border rounded px-2 py-1 w-full" required></textarea>
+    </div>
+
+    <button type="submit" class="px-4 py-2  text-white rounded hover:bg-blue-600" style="background-color: rgb(87, 87, 243);">
+        Submit Request
+    </button>
+</form>
+</div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <p class="mt-4 text-green-600">@TempData["Success"]</p>
+}

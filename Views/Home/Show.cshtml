@@ -1,0 +1,50 @@
+﻿@model HRGroup.Models.Employee
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-20" style="margin-top:40px;">
+    <div class="bg-white rounded-xl shadow-xl p-8 max-w-lg w-full">
+
+        <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Profile Details</h2>
+
+        @if (Model != null)
+        {
+            <div class="flex flex-col items-center space-y-4">
+
+                <img src="@Model.ProfileImageUrl" alt="Profile Image"
+                     class="rounded-full w-36 h-36 object-cover border-4 border-indigo-500 shadow-md" />
+
+                <div class="w-full text-gray-700">
+
+                    <p class="mb-2"><span class="font-semibold">Full Name:</span> @Model.FullName</p>
+                    <p class="mb-2"><span class="font-semibold">Email:</span> @Model.Email</p>
+                    <p class="mb-2"><span class="font-semibold">Phone Number:</span> @Model.PhoneNumber</p>
+                    <p class="mb-2"><span class="font-semibold">Address:</span> @Model.Address</p>
+                    <p class="mb-2"><span class="font-semibold">Designation:</span> @Model.Designation</p>
+                    <p class="mb-2"><span class="font-semibold">Gender:</span> @Model.Gender</p>
+                    <p class="mb-2"><span class="font-semibold">Date of Birth:</span> @Model.DateOfBirth?.ToString("yyyy-MM-dd")</p>
+                    @if (Model == null || Model.Department == null)
+                    {
+                        <p class="mb-2"><span class="font-semibold">Department:</span> None</p>
+                    }
+                    else
+                    {
+                        <p class="mb-2"><span class="font-semibold">Department:</span> @Model.DepartmentId </p>
+                    }
+
+                    <a asp-action="Edit" asp-route-employeeId="@Model.EmployeeId"
+                       class="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition duration-200">
+                        Edit Profile
+                    </a>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-gray-600">No profile available.</p>
+        }
+    </div>
+</div>

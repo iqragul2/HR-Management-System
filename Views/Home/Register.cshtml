@@ -1,0 +1,50 @@
+﻿@model User
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center" style="color: rgb(87, 87, 243);">@ViewData["Title"]</h2>
+
+<div class="container" style="margin-top: 100px; max-width: 500px; padding: 30px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <form asp-action="Register" method="post">
+        <!-- First Name Field -->
+        <div class="form-group mb-3">
+            <label for="FirstName" style="font-weight: bold; color: #333;">First Name</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" required style="border-radius: 5px;" />
+        </div>
+
+        <!-- Last Name Field -->
+        <div class="form-group mb-3">
+            <label for="LastName" style="font-weight: bold; color: #333;">Last Name</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" required style="border-radius: 5px;" />
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group mb-3">
+            <label for="Email" style="font-weight: bold; color: #333;">Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" required style="border-radius: 5px;" />
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group mb-3">
+            <label for="Password" style="font-weight: bold; color: #333;">Password</label>
+            <input type="password" class="form-control" id="Password" name="Password" required style="border-radius: 5px;" />
+        </div>
+
+        <!-- Hidden Role Field -->
+        <input type="hidden" name="RoleId" value="2" />
+
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn" style="background-color: rgb(87, 87, 243); color: white; padding: 10px 20px; border-radius: 5px;">
+                Register
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Login Link -->
+<div class="text-center mt-4">
+    <p>Already have an account? <a href="@Url.Action("Login", "Account")" style="color: rgb(87, 87, 243); font-weight: bold;">Login here</a>.</p>
+</div>

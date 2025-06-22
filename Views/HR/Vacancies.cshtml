@@ -1,0 +1,50 @@
+﻿@model List<HRGroup.Models.Vacancy>
+@{
+    ViewData["Title"] = "My Vacancies";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="container mx-auto mt-36 mb-36 px-4 max-w-6xl">
+    <h2 class="mb-8 text-3xl font-bold text-gray-800 text-center">My Vacancies</h2>
+
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        @foreach (var vacancy in Model)
+        {
+            <div class="bg-white rounded-lg shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300 flex flex-col p-4">
+                <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700">
+                    <div class="font-semibold text-gray-500">Vacancy Code:</div>
+                    <div>@vacancy.VacancyId</div>
+
+                    <div class="font-semibold text-gray-500">Job Title:</div>
+                    <div>@vacancy.Title</div>
+
+                    <div class="font-semibold text-gray-500">Department:</div>
+                    <div>@vacancy.Department?.Name</div>
+
+                    <div class="font-semibold text-gray-500">Openings:</div>
+                    <div>@vacancy.Openings</div>
+
+                    <div class="font-semibold text-gray-500">Closing Date:</div>
+                    <div>@vacancy.ClosingDate?.ToString("yyyy-MM-dd")</div>
+
+                    <div class="font-semibold text-gray-500">Status:</div>
+                    <div>@vacancy.Status</div>
+                </div>
+
+                <div class="mt-4 flex justify-center">
+                    <a href="@Url.Action("EditVacancy", "HR", new { id = vacancy.VacancyId })"
+                       class="inline-block bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold py-2 px-4 rounded shadow transition">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-12">
+        <a href="@Url.Action("CreateVacancy", "HR")"
+           class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded shadow-lg transition">
+            Create New Vacancy
+        </a>
+    </div>
+</div>

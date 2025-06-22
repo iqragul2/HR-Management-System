@@ -1,0 +1,120 @@
+﻿@model HRGroup.Models.VacancyCreateViewModel
+
+@{
+    ViewBag.Title = "Edit Vacancy";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="max-w-4xl mx-auto my-16 p-8 bg-white rounded shadow" style="margin-top:100px;">
+    <h2 class="text-xl font-semibold mb-4 text-center">Edit Vacancy</h2>
+
+    <form asp-action="EditVacancy" method="post" class="space-y-1">
+        @Html.AntiForgeryToken()
+
+        <!-- 🟦 Row 1: VacancyId & CreatedBy -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.VacancyId" class="font-medium text-gray-700">Vacancy ID</label>
+                <input asp-for="Vacancy.VacancyId" readonly
+                       class="bg-gray-100 border rounded px-2 py-1 min-h-[38px]" />
+            </div>
+
+            <div class="flex flex-col">
+                <label class="font-medium text-gray-700">Created By</label>
+                <input asp-for="Vacancy.CreatedBy" type="hidden" />
+                <input value="@Model.Vacancy.CreatedBy" readonly
+                       class="bg-gray-100 border rounded px-2 py-1 min-h-[38px]" />
+            </div>
+        </div>
+
+        <!-- 🟦 Row 2: CreatedDate & Title -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.CreatedDate" class="font-medium text-gray-700">Created Date</label>
+                <input asp-for="Vacancy.CreatedDate" readonly
+                       class="bg-gray-100 border rounded px-2 py-1 min-h-[38px]" />
+            </div>
+
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.Title" class="font-medium">Title</label>
+                <input asp-for="Vacancy.Title"
+                       class="border rounded px-2 py-1 min-h-[38px] focus:outline-none focus:ring focus:ring-blue-300"
+                       placeholder="Enter Vacancy Title" />
+                <span asp-validation-for="Vacancy.Title" class="text-red-600 text-sm"></span>
+            </div>
+        </div>
+
+        <!-- 🟦 Row 3: Job Description & Openings -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.JobDescription" class="font-medium">Job Description</label>
+                <textarea asp-for="Vacancy.JobDescription" rows="3"
+                          class="border rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300 min-h-[38px]"
+                          placeholder="Enter Job Description"></textarea>
+                <span asp-validation-for="Vacancy.JobDescription" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.Openings" class="font-medium">Openings</label>
+                <input asp-for="Vacancy.Openings" type="number"
+                       class="border rounded px-2 py-1 min-h-[38px] focus:outline-none focus:ring focus:ring-blue-300" />
+                <span asp-validation-for="Vacancy.Openings" class="text-red-600 text-sm"></span>
+            </div>
+        </div>
+
+        <!-- 🟦 Row 4: Department & Status -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.DepartmentId" class="font-medium">Department</label>
+                <input type="hidden" asp-for="Vacancy.DepartmentId" />
+                <input type="text"
+                       value="@Model.Departments.FirstOrDefault(d => d.DepartmentId == Model.Vacancy.DepartmentId)?.Name"
+                       readonly
+                       class="bg-gray-100 border rounded px-2 py-1 min-h-[38px]" />
+                <span asp-validation-for="Vacancy.DepartmentId" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.Status" class="font-medium">Status</label>
+                <select asp-for="Vacancy.Status"
+                        class="border rounded px-2 py-1 min-h-[38px] focus:outline-none focus:ring focus:ring-blue-300">
+                    <option value="Open">Open</option>
+                    <option value="Close">Close</option>
+                    <option value="Suspended">Suspended</option>
+                </select>
+                <span asp-validation-for="Vacancy.Status" class="text-red-600 text-sm"></span>
+            </div>
+        </div>
+
+        <!-- 🟦 Row 5: ClosingDate & empty column -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label asp-for="Vacancy.ClosingDate" class="font-medium">Closing Date</label>
+                <input asp-for="Vacancy.ClosingDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                       class="border rounded px-2 py-1 min-h-[38px] focus:outline-none focus:ring focus:ring-blue-300" />
+                <span asp-validation-for="Vacancy.ClosingDate" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="flex-1"></div>
+        </div>
+
+        <!-- Errors -->
+        @if (ViewBag.Errors != null)
+        {
+            <div class="p-2 bg-red-100 text-red-700 rounded">
+                <ul class="list-disc list-inside text-sm">
+                    @foreach (var error in (IEnumerable<string>)ViewBag.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-2 pt-4">
+            <a asp-action="Vacancies" class="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancel</a>
+            <button type="submit" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
+        </div>
+    </form>
+</div>

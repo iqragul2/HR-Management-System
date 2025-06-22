@@ -1,0 +1,41 @@
+
+//EntityFrame Works
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 8.0.15
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 8.0.15
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 8.0.15
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -Version 8.0.7
+
+
+
+// Sql ME Database bnaein 
+//MAnage console me database add krne k lye project me ye command run krte hein
+
+migration database
+Scaffold-DbContext "Server=DESKTOP-72BN27H\SQLEXPRESS01;Database=CrudPro;User Id=sa.;Password=aptech;Trusted_Connection=False;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -ContextDir Data -OutputDir Models -Context StudentsDbContext -f
+
+or update database
+Scaffold-DbContext "Server=DESKTOP-72BN27H\SQLEXPRESS01;Database=ORP_db;User Id=sa.;Password=aptech;Trusted_Connection=False;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -ContextDir Data -OutputDir Models -Context RecruitmentDbContext -f
+
+Scaffold-DbContext "Server=.;Database=ORP_db;User Id=sa;Password=aptech;Trusted_Connection=False;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -ContextDir Data -OutputDir Models -Context RecruitmentDbContext -f
+
+//appsetting.json
+"ConnectionString":{
+DefaultConnection:"Server=Server=DESKTOP-72BN27H\SQLEXPRESS01;Database=ORP_db;User Id=sa.;Password=aptech;Trusted_Connection=False;TrustServerCertificate=True;
+}
+//appsetting.json
+"ConnectionString"{
+Connection="Server=Server=.;Database=ORP_db;User Id=sa;Password=aptech;Trusted_Connection=False;TrustServerCertificate=True;
+}
+//programm.cs
+builder.Services.AddDbContext<EcommerceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+//ye Controller he
+// is me Office controller ki jagah apne controller ka name ayega or controller bnate hue ap api ko select kreinge take apka project controller api ko connect kre or controller me model add krna zruri he take apka database me jo fields he wo controller se connect hojae
+private readonly OfficeDbContext db;  // is me jo db he wo humne khud se add kiya he is ki jgah hum kuch or bhi add kr skte hein
+public OfficeController(OfficeDbContext db) { // is me model ko as a parameter use kiya he or db jo private method me use kiya wahi likhna he phir constructor me call krwana with this. k sth
+    this.db = db;
+}
+
+
+https://www.nuget.org/api/v2

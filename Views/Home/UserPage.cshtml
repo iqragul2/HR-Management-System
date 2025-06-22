@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+    var employee = ViewBag.Employee as Employee;
+    var applied = ViewBag.AppliedVacancies as List<ApplicantVacancy> ?? new List<ApplicantVacancy>();
+    var interviews = ViewBag.Interviews as List<Interview> ?? new List<Interview>();
+}
+
+<div class="container my-5">
+    <div class="bg-white p-4 p-md-5 rounded shadow-sm"style="margin-top:130px;margin-bottom:130px">
+        <h2 class="mb-4 fw-bold text-center text-primary" style="letter-spacing: 1px;">User Dashboard</h2>
+
+        <!-- Profile Summary Card -->
+        <div class="card shadow p-4 d-flex flex-md-row align-items-center mb-4 border-0" style="border-radius: 1rem;">
+            <img src="@employee?.ProfileImageUrl"
+                 alt="Profile Image"
+                 class="rounded-circle border border-2 me-4"
+                 style="width: 80px; height: 80px; object-fit: cover;">
+            <div class="flex-grow-1">
+                <h5 class="mb-1 fw-bold text-dark">@employee?.FullName</h5>
+                <p class="mb-0 text-muted small">@employee?.Email</p>
+                <p class="mb-2 text-muted small">@employee?.PhoneNumber</p>
+
+                @if (employee == null || !employee.ProfileCompleted.GetValueOrDefault())
+                {
+                    <a asp-action="Create" asp-controller="Profile" class="btn btn-primary btn-sm mt-1 shadow-sm">Complete Profile</a>
+                }
+                else
+                {
+                    <a asp-action="Show" asp-controller="Profile" class="btn btn-outline-primary btn-sm mt-1 shadow-sm">View Profile</a>
+                }
+            </div>
+        </div>
+
+        <!-- Applications Card -->
+        <div class="card shadow-sm mb-4 border-0 animate-fade-in" style="border-radius: 1rem;">
+            <div class="card-body">
+                <h5 class="card-title mb-3 fw-semibold text-dark border-bottom pb-2">Your Applications</h5>
+                @if (applied.Count == 0)
+                {
+                    <p class="text-muted fst-italic">You haven’t applied to any vacancies yet.</p>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var app in applied)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-start flex-column flex-md-row bg-light rounded shadow-sm mb-2 border-0">
+                                <div class="flex-grow-1">
+                                    <strong>@app.Vacancy.Title</strong> - <span class="text-muted">@app.Vacancy.Department.Name</span>
+                                    <div class="small text-muted mt-1">Closing Date: @(app.Vacancy.ClosingDate.ToString())</div>
+                                    <div class="small text-muted mt-1">Applied on: @(app.AttachedDate.ToString())</div>
+                                </div>
+                                <span class="badge bg-@(app.Status == "Hired" ? "success" : app.Status == "Rejected" ? "danger" : "secondary") align-self-md-center mt-2 mt-md-0">
+                                    @app.Status
+                                </span>
+                            </li>
+
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+
+        <!-- Interviews Card -->
+        <!-- Interviews Card -->
+        <div class="card shadow-sm mb-4 border-0 animate-fade-in" style="border-radius: 1rem;">
+            <div class="card-body">
+                <h5 class="card-title mb-3 fw-semibold text-dark border-bottom pb-2">Your Interviews</h5>
+                @if (interviews.Count == 0)
+                {
+                    <p class="text-muted fst-italic">No interviews scheduled yet.</p>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var interview in interviews)
+                        {
+                            var applicantStatus = interview.ApplicantVacancy.Applicant.Status;
+
+                            <li class="list-group-item d-flex justify-content-between align-items-start flex-column flex-md-row bg-light rounded shadow-sm mb-2 border-0">
+                                <div class="flex-grow-1">
+                                    <strong>@interview.ApplicantVacancy.Vacancy.Title</strong> - <span class="text-muted">@interview.ApplicantVacancy.Vacancy.Department.Name</span>
+                                    <div class="small text-muted mt-1">Scheduled with: <span class="fw-semibold">@interview.Interviewer.FullName</span></div>
+                                    <div class="small text-muted mt-1">Date & Time: @interview.ScheduledDate.ToString("f")</div>
+                                    <div class="small text-muted mt-1">Final Status: <span class="fw-semibold text-@(applicantStatus == "Hired" ? "success" : applicantStatus == "Banned" ? "danger" : "secondary")">@applicantStatus</span></div>
+                                </div>
+                                <span class="badge bg-@(interview.Result == "Selected" ? "success" : interview.Result == "Rejected" ? "danger" : "secondary") align-self-md-center mt-2 mt-md-0">
+                                    @interview.Result
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Optional: CSS for subtle fade-in animation -->
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+   
+</style>

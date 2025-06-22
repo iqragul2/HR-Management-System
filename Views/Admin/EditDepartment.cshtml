@@ -1,0 +1,49 @@
+﻿@model HRGroup.Models.Department
+
+@{
+    ViewData["Title"] = "Edit Department";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="min-h-screen flex justify-center items-center py-10 px-4">
+    <div class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md">
+        <h2 class="mb-6 text-center text-2xl font-semibold text-gray-800">Edit Department</h2>
+
+        <form asp-action="EditDepartment" method="post" enctype="multipart/form-data" class="space-y-4">
+
+            <div>
+                <label asp-for="DepartmentId" class="block font-medium text-gray-700 mb-1">Department ID</label>
+                <input asp-for="DepartmentId" readonly class="w-full border border-gray-300 rounded-md p-2 bg-gray-100" />
+                <span asp-validation-for="DepartmentId" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="Name" class="block font-medium text-gray-700 mb-1">Department Name</label>
+                <input asp-for="Name" class="w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200" placeholder="Enter department name" />
+                <span asp-validation-for="Name" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block font-medium text-gray-700 mb-1">Current Image</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Department Image" class="mb-2 rounded-md shadow w-full h-40 object-cover" />
+                }
+                else
+                {
+                    <p class="text-gray-500 italic">No image uploaded.</p>
+                }
+            </div>
+
+            <div>
+                <label class="block font-medium text-gray-700 mb-1">Upload New Image</label>
+                <input type="file" name="imageFile" class="w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200" />
+            </div>
+
+            <div class="flex justify-between pt-4">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Save Changes</button>
+                <a asp-action="ListDepartments" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition text-center min-w-[100px]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

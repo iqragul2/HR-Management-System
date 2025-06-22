@@ -1,0 +1,64 @@
+﻿@model HRGroup.Models.Applicant
+
+@{
+    ViewBag.Title = "Update Applicant";
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="bg-light d-flex justify-content-center align-items-start py-5" style="min-height: 100vh; margin-top:150px;margin-bottom:150px">
+    <div class="card shadow-lg border-0 rounded-4" style="width: 750px; max-width: 90%;">
+        <div class="card-body px-4 pb-4">
+            <div class="text-center fw-bold py-3 mb-4"
+                 style="background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 0.5rem;">
+                <h4 class="mb-0 text-dark">Update Applicant</h4>
+            </div>
+
+            <form asp-action="UpdateApplicant" method="post">
+                <div class="mb-3">
+                    <label asp-for="ApplicantId" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="ApplicantId" class="form-control form-control-sm bg-light" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="Name" class="form-control form-control-sm shadow-sm" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="Email" class="form-control form-control-sm shadow-sm" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="PhoneNumber" class="form-control form-control-sm shadow-sm" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AppliedDate" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="AppliedDate" class="form-control form-control-sm bg-light" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label small fw-bold text-muted"></label>
+                    <input asp-for="Status" class="form-control form-control-sm bg-light" readonly />
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary fw-semibold btn-sm shadow-sm">
+                        Update Applicant
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</environment>

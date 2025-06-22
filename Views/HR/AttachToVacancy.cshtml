@@ -1,0 +1,39 @@
+﻿@model HRGroup.Models.AttachViewModel
+
+@{
+    Layout = "~/Views/Shared/_HRLayout.cshtml";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4" style="margin-top:80px">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg">
+        <h4 class="text-xl font-semibold text-blue-600 mb-6 text-center">
+            Attach @Model.ApplicantName to Vacancy
+        </h4>
+
+        <form asp-action="AttachToVacancy" method="post" class="space-y-6">
+            @* Hidden field for ApplicantId *@
+            <input type="hidden" asp-for="ApplicantId" />
+
+            @* Dropdown for Vacancies *@
+            <div>
+                <label asp-for="VacancyId" class="block text-sm font-semibold text-gray-600 mb-1">
+                    Select Vacancy
+                </label>
+                <select asp-for="VacancyId"
+                        class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+                        asp-items="@(new SelectList(Model.Vacancies, "VacancyId", "Title", Model.VacancyId))">
+                    <option value="">-- Select Vacancy --</option>
+                </select>
+                <span asp-validation-for="VacancyId" class="text-red-600 text-xs mt-1 block"></span>
+            </div>
+
+            @* Submit button *@
+            <div>
+                <button type="submit"
+                        class="w-full bg-blue-600 text-white font-semibold py-2 rounded shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Attach
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

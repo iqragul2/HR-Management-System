@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tailwind Accordion</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js for simple interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="w-full px-4 pt-[100px]">
+        <h2 class="text-2xl font-bold mb-6 text-center">📘 General Help & FAQs – For Users</h2>
+
+        <div x-data="{ selected: 0 }" class="space-y-4">
+
+            <!-- Login -->
+            <div class="border rounded shadow">
+                <button @@click ="selected !== 1 ? selected = 1 : selected = null" class="w-full flex justify-between items-center p-4 font-medium bg-white">
+                    🔐 How do I log in?
+                    <svg :class="{ 'rotate-180': selected === 1 }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="selected === 1" x-collapse class="p-4 bg-gray-50">
+                    Visit the login page and enter your <strong>Email</strong> and <strong>Password</strong>. If valid, you will be redirected to your User Dashboard. Make sure you enter correct credentials, or an error will appear.
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="border rounded shadow">
+                <button @@click ="selected !== 2 ? selected = 2 : selected = null" class="w-full flex justify-between items-center p-4 font-medium bg-white">
+                    🔒 How can I change my password?
+                    <svg :class="{ 'rotate-180': selected === 2 }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="selected === 2" x-collapse class="p-4 bg-gray-50">
+                    After logging in, go to <strong>My Profile</strong> and click on <strong>Change Password</strong>. Make sure your new password is strong and secure.
+                </div>
+            </div>
+
+            <!-- Update Profile -->
+            <div class="border rounded shadow">
+                <button @@click ="selected !== 3 ? selected = 3 : selected = null" class="w-full flex justify-between items-center p-4 font-medium bg-white">
+                    📝 How can I update my profile information?
+                    <svg :class="{ 'rotate-180': selected === 3 }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="selected === 3" x-collapse class="p-4 bg-gray-50">
+                    Visit the <strong>My Profile</strong> section and click <strong>Edit</strong> to update your name, email, or other editable fields.
+                </div>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="border rounded shadow">
+                <button @@click ="selected !== 4 ? selected = 4 : selected = null" class="w-full flex justify-between items-center p-4 font-medium bg-white">
+                    ❓ What if I forget my password?
+                    <svg :class="{ 'rotate-180': selected === 4 }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="selected === 4" x-collapse class="p-4 bg-gray-50">
+                    Currently, there is no automated password recovery. Please contact the system administrator to reset your password manually.
+                </div>
+            </div>
+
+            <!-- Session Expiry -->
+            <div class="border rounded shadow">
+                <button @@click ="selected !== 5 ? selected = 5 : selected = null" class="w-full flex justify-between items-center p-4 font-medium bg-white">
+                    ⏳ Why am I logged out automatically?
+                    <svg :class="{ 'rotate-180': selected === 5 }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="selected === 5" x-collapse class="p-4 bg-gray-50">
+                    For security reasons, if you're inactive for a certain period, your session will expire and you'll be logged out. Please log in again.
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="@Url.Action("index", "Help")" class="inline-block px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-500 hover:text-white transition">Contact Us</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
